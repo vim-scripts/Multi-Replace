@@ -1,0 +1,55 @@
+This is a mirror of http://www.vim.org/scripts/script.php?script_id=2938
+
+This script provides several functions to do multiple-string replacements.
+
+The quick brown fox jumped over the six lazy dogs.
+replace (dogs=fox, fox=dogs, x=ck) will give
+The quick brown dogs jumped over the sick lazy fox.
+
+Note that values are non-cumulative and longest-string-first, which is why
+"x=ck" does not interfere with "dogs=fox" or "fox=dogs" replacements.
+This can be used to specify exceptions in a replacement list. 
+
+Typical uses: 
+- Replacing variable names (eg code localization / code reuse)
+- Replacing keywords with translations
+- Generating code from a template
+- Swapping keywords
+  etc
+
+Its main function is provided  by the MultiReplace function, which performs
+non-cumulative replacements, replacing occurrences of hash keys with their corresponding hash values. Hash values may be arrays, in which case values are rotated across the lines containing the key value. Range of lines to replace may also be specified.
+
+MultiReplace(dict, from, to)
+
+Several functions that create the "dict" hash are also provided.
+
+1) Read values from prompt
+MultiReplace(ReadUserlist(), 1,  "$")
+
+2) Replacement dictionary
+A buffer may be also specified. A replacement list buffer will contain TAB separated pairs, with the string to find on the left and the string to replace with on the right. Such a replacement would be invoked with
+
+MultiReplace(ReadDictionary("#"), 1, "$")
+
+Where the "#" here refers to the alternate buffer:
+ReadDictionary(buffer)
+
+3) Look up table 
+A buffer containing delimiter-separated values my also be used. To use a csv that does not contain quote marks (ie, no quotes and no values with linebreaks), and replace all occurrences from column 1 with values from column 4:
+
+MultiReplace(ReadColumns("#", ",", 1, 4), 1, "$")
+
+ReadColumns is defined as
+ReadColumns(buffer, sep, keycol, valcol)
+
+Mappings
+The following mappings are included in the file. This allows you to select a range of text, enter ",rem" and then enter "=" and specify find=replace pairs for a quick replacement.
+
+:map ,rem :call MultiReplace("",1,"$")
+:vmap ,rem :call MultiReplace("",line("'<"),line("'>"))
+
+
+
+
+
