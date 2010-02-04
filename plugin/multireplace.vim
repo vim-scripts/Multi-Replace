@@ -7,8 +7,10 @@
 
 ",rem		: (re)place (m)ultiple
 "---------------------------------------------------------------------
-:map ,rem :call MultiReplace("",1,"$")
-:vmap ,rem :call MultiReplace("",line("'<"),line("'>"))
+:map ,rem :call MultiReplace("",1,"$")
+
+:vmap ,rem :call MultiReplace("",line("'<"),line("'>"))
+
 
 "ReadColumns	> ReadColumns(buffer, sep, keycol, valcol)
 " --------------------------------------------------------------------
@@ -123,7 +125,7 @@ function! MultiReplace(dict, from, to) range
                 let str = substitute(str, '#'      , '##'                             , 'g')
                 let str = substitute(str, '_'      , '#_'                             , 'g')
                 let str = substitute(str, '!'      , '#!'                             , 'g')
-                let str = substitute(str, 'n'      , 'n_'                             , 'g')
+                let str = substitute(str, '\(n\)'  , '\1_'                             , 'g')
                 let str = substitute(str, '\(\d\)' , '\1_'                            , 'g')
                 let str = substitute(str, '\(\d\)_', '\="#n".char2nr(submatch(1))."!"', 'g')
                 let str = substitute(str, '\(n\)_' , '\="#n".char2nr(submatch(1))."!"', 'g')
@@ -139,7 +141,7 @@ function! MultiReplace(dict, from, to) range
 				let str = substitute(str, '#'      , '##'                             , 'g')
 				let str = substitute(str, '_'      , '#_'                             , 'g')
 				let str = substitute(str, '!'      , '#!'                             , 'g')
-				let str = substitute(str, 'n'      , 'n_'                             , 'g')
+				let str = substitute(str, '\(n\)'  , '\1_'                             , 'g')
 				let str = substitute(str, '\(\d\)' , '\1_'                            , 'g')
 				let str = substitute(str, '\(\d\)_', '\="#n".char2nr(submatch(1))."!"', 'g')
 				let str = substitute(str, '\(n\)_' , '\="#n".char2nr(submatch(1))."!"', 'g')
@@ -154,7 +156,7 @@ function! MultiReplace(dict, from, to) range
 			let str = substitute(str, '#'      , '##'                             , 'g')
 			let str = substitute(str, '_'      , '#_'                             , 'g')
 			let str = substitute(str, '!'      , '#!'                             , 'g')
-			let str = substitute(str, 'n'      , 'n_'                             , 'g')
+			let str = substitute(str, '\(n\)'  , '\1_'                             , 'g')
 			let str = substitute(str, '\(\d\)' , '\1_'                            , 'g')
 			let str = substitute(str, '\(\d\)_', '\="#n".char2nr(submatch(1))."!"', 'g')
 			let str = substitute(str, '\(n\)_' , '\="#n".char2nr(submatch(1))."!"', 'g')
@@ -174,7 +176,7 @@ function! MultiReplace(dict, from, to) range
                 let str = substitute(str, '#'      , '##'                             , 'g')
                 let str = substitute(str, '_'      , '#_'                             , 'g')
                 let str = substitute(str, '!'      , '#!'                             , 'g')
-                let str = substitute(str, 'n'      , 'n_'                             , 'g')
+		let str = substitute(str, '\(n\)'  , '\1_'                             , 'g')
                 let str = substitute(str, '\(\d\)' , '\1_'                            , 'g')
                 let str = substitute(str, '\(\d\)_', '\="#n".char2nr(submatch(1))."!"', 'g')
                 let str = substitute(str, '\(n\)_' , '\="#n".char2nr(submatch(1))."!"', 'g')
